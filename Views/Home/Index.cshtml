@@ -3,8 +3,8 @@
 }
 
 <div class="text-center mb-4">
-    <h1 class="display-4">Cinema Ticketing System</h1>
-    <p class="lead">Oracle-based cinema management - Academic Demo</p>
+    <h1 class="display-4 mb-2">Cinema Ticketing Console</h1>
+    <p class="lead mb-0">Manage customers, schedules, tickets and insights in a single, elegant dashboard.</p>
 </div>
 
 <div class="row g-3 mb-4">
@@ -13,14 +13,29 @@
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0">Data Management</h5>
             </div>
-            <div class="card-body">
-                <ul class="list-unstyled mb-0">
-                    <li class="mb-2"><a asp-controller="Customer" asp-action="Index" class="text-decoration-none">User Details (Customer)</a></li>
-                    <li class="mb-2"><a asp-controller="Hall" asp-action="Index" class="text-decoration-none">Theater/Hall Details</a></li>
-                    <li class="mb-2"><a asp-controller="Movie" asp-action="Index" class="text-decoration-none">Movie Details</a></li>
-                    <li class="mb-2"><a asp-controller="Showing" asp-action="Index" class="text-decoration-none">Showtimes</a></li>
-                    <li><a asp-controller="Ticket" asp-action="Index" class="text-decoration-none">Ticket Details</a></li>
-                </ul>
+            <div class="card-body home-quick-links">
+                <div class="home-link-grid">
+                    <a asp-controller="Customer" asp-action="Index" class="home-link-tile">
+                        <span>User Details (Customer)</span>
+                        <span class="home-link-icon">›</span>
+                    </a>
+                    <a asp-controller="Hall" asp-action="Index" class="home-link-tile">
+                        <span>Theater/Hall Details</span>
+                        <span class="home-link-icon">›</span>
+                    </a>
+                    <a asp-controller="Movie" asp-action="Index" class="home-link-tile">
+                        <span>Movie Details</span>
+                        <span class="home-link-icon">›</span>
+                    </a>
+                    <a asp-controller="Showing" asp-action="Index" class="home-link-tile">
+                        <span>Showtimes</span>
+                        <span class="home-link-icon">›</span>
+                    </a>
+                    <a asp-controller="Ticket" asp-action="Index" class="home-link-tile">
+                        <span>Ticket Details</span>
+                        <span class="home-link-icon">›</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -29,12 +44,21 @@
             <div class="card-header bg-success text-white">
                 <h5 class="mb-0">Reports</h5>
             </div>
-            <div class="card-body">
-                <ul class="list-unstyled mb-0">
-                    <li class="mb-2"><a asp-controller="UserTicket" asp-action="Index" class="text-decoration-none">User Tickets (Last 6 months)</a></li>
-                    <li class="mb-2"><a asp-controller="TheaterMovie" asp-action="Index" class="text-decoration-none">Theater/Hall Movies</a></li>
-                    <li><a asp-controller="Occupancy" asp-action="Index" class="text-decoration-none">Top Occupancy by Movie</a></li>
-                </ul>
+            <div class="card-body home-quick-links">
+                <div class="home-link-grid">
+                    <a asp-controller="UserTicket" asp-action="Index" class="home-link-tile">
+                        <span>User Tickets (Last 6 months)</span>
+                        <span class="home-link-icon">›</span>
+                    </a>
+                    <a asp-controller="TheaterMovie" asp-action="Index" class="home-link-tile">
+                        <span>Theater/Hall Movies</span>
+                        <span class="home-link-icon">›</span>
+                    </a>
+                    <a asp-controller="Occupancy" asp-action="Index" class="home-link-tile">
+                        <span>Top Occupancy by Movie</span>
+                        <span class="home-link-icon">›</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -44,7 +68,8 @@
                 <h5 class="mb-0">Quick Info</h5>
             </div>
             <div class="card-body">
-                <p class="small mb-0">Connect to Oracle database and manage cinema data. All pages support full CRUD where applicable. Reports show tickets, movies by theater, and occupancy.</p>
+                <p class="small mb-2">This academic project demonstrates a cinema ticketing system built on ASP.NET Core MVC with an Oracle database backend.</p>
+                <p class="small mb-0 text-muted">It covers end‑to‑end management of customers, theaters, halls, movies, showtimes and tickets, plus reporting on user tickets, movie scheduling and occupancy.</p>
             </div>
         </div>
     </div>
