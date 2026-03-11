@@ -1,0 +1,42 @@
+@model List<Movie>
+@{
+    ViewData["Title"] = "Movie Details";
+}
+<h2>Movie Details</h2>
+<p class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Duration</th>
+            <th>Language</th>
+            <th>Genre</th>
+            <th>Release Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MovieId</td>
+                <td>@item.Title</td>
+                <td>@item.Duration min</td>
+                <td>@(item.Language ?? "-")</td>
+                <td>@(item.Genre ?? "-")</td>
+                <td>@(item.ReleaseDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MovieId" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.MovieId" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="text-muted">No movies found. Create one to get started.</p>
+}

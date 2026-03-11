@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = "Top Occupancy by Movie";
+    var movies = ViewBag.Movies as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+    var results = ViewBag.Results as List<OccupancyViewModel> ?? new List<OccupancyViewModel>();
+    var selectedMovie = ViewBag.SelectedMovie;
+}
+<h2>Movie Theater/Hall Occupancy - Top 3 Performers</h2>
+<p class="text-muted">Occupancy = (paid tickets / hall capacity) × 100. Only paid tickets are counted.</p>
+<form method="get" asp-action="Index" class="card p-3 mb-3">
+    <div class="row align-items-end">
+        <div class="col-md-6">
+            <label class="form-label">Select Movie</label>
+            <select name="movieId" class="form-select">
+                <option value="">-- Select Movie --</option>
+                @foreach (var m in movies)
+                {
+                    var selected = ViewBag.MovieId != null && m.MovieId == (decimal)ViewBag.MovieId;
+                    <option value="@m.MovieId" selected="@selected">@m.Display</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">Get Top 3</button>
+        </div>
+    </div>
+</form>
+
+@if (selectedMovie != null)
+{
+    <div class="alert alert-info mb-3">Showing top 3 theater/hall combinations for: <strong>@selectedMovie.Title</strong></div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Theater Name</th>
+            <th>City</th>
+            <th>Hall Number</th>
+            <th>Capacity</th>
+            <th>Paid Tickets</th>
+            <th>Occupancy %</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in results)
+        {
+            <tr>
+                <td>@(r.TheaterName ?? "-")</td>
+                <td>@(r.City ?? "-")</td>
+                <td>@(r.HallNumber ?? "-")</td>
+                <td>@r.Capacity</td>
+                <td>@r.PaidTicketsCount</td>
+                <td>@r.OccupancyPercentage.ToString("N2")%</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!results.Any() && selectedMovie != null)
+{
+    <p class="text-muted">No paid tickets found for this movie, or no showings in halls.</p>
+}

@@ -1,0 +1,73 @@
+@{
+    ViewData["Title"] = "Theater/Hall Movies";
+    var theaters = ViewBag.Theaters as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+    var halls = ViewBag.Halls as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+    var results = ViewBag.Results as List<TheaterMovieViewModel> ?? new List<TheaterMovieViewModel>();
+}
+<h2>Theater/Hall Movies</h2>
+<form method="get" asp-action="Index" class="card p-3 mb-3">
+    <div class="row align-items-end">
+        <div class="col-md-4">
+            <label class="form-label">Theater</label>
+            <select name="theaterId" class="form-select">
+                <option value="">-- All Theaters --</option>
+                @foreach (var t in theaters)
+                {
+                    var selected = ViewBag.TheaterId != null && t.TheaterId == (decimal)ViewBag.TheaterId;
+                    <option value="@t.TheaterId" selected="@selected">@t.Display</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Hall</label>
+            <select name="hallId" class="form-select">
+                <option value="">-- All Halls --</option>
+                @foreach (var h in halls)
+                {
+                    var selected = ViewBag.HallId != null && h.HallId == (decimal)ViewBag.HallId;
+                    <option value="@h.HallId" selected="@selected">@h.Display</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
+<h5>Results</h5>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Theater Name</th>
+            <th>City</th>
+            <th>Hall Number</th>
+            <th>Movie Title</th>
+            <th>Genre</th>
+            <th>Language</th>
+            <th>Show Date</th>
+            <th>Show Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in results)
+        {
+            <tr>
+                <td>@(r.TheaterName ?? "-")</td>
+                <td>@(r.City ?? "-")</td>
+                <td>@(r.HallNumber ?? "-")</td>
+                <td>@(r.MovieTitle ?? "-")</td>
+                <td>@(r.Genre ?? "-")</td>
+                <td>@(r.Language ?? "-")</td>
+                <td>@(r.ShowDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                <td>@(r.ShowTime?.ToString(@"hh\:mm") ?? "-")</td>
+                <td>@(r.Status ?? "-")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!results.Any() && (ViewBag.TheaterId != null || ViewBag.HallId != null))
+{
+    <p class="text-muted">No results found for the selected filters.</p>
+}

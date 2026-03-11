@@ -1,0 +1,50 @@
+@model List<Ticket>
+@{
+    ViewData["Title"] = "Ticket Details";
+}
+<h2>Ticket Details</h2>
+<p class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Ticket #</th>
+            <th>Movie</th>
+            <th>Theater</th>
+            <th>Hall</th>
+            <th>Show Date</th>
+            <th>Show Time</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Payment</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TicketId</td>
+                <td>@item.TicketNumber</td>
+                <td>@(item.MovieTitle ?? "-")</td>
+                <td>@(item.TheaterName ?? "-")</td>
+                <td>@(item.HallNumber ?? "-")</td>
+                <td>@(item.ShowDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                <td>@(item.ShowTime?.ToString(@"hh\:mm") ?? "-")</td>
+                <td>@item.TicketPrice.ToString("N2")</td>
+                <td>@(item.TicketStatus ?? "-")</td>
+                <td>@(item.PaymentStatus ?? "-")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TicketId" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.TicketId" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="text-muted">No tickets found. Create one to get started.</p>
+}

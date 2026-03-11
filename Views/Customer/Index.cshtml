@@ -1,0 +1,45 @@
+@model List<Customer>
+@{
+    ViewData["Title"] = "User Details (Customer)";
+}
+
+<h2>User Details (Customer)</h2>
+<p class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Reg. Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CustomerId</td>
+                <td>@item.Username</td>
+                <td>@item.FullName</td>
+                <td>@item.CustomerEmail</td>
+                <td>@(item.PhoneNumber ?? "-")</td>
+                <td>@(item.CustomerCity ?? "-")</td>
+                <td>@(item.RegistrationDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.CustomerId" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="text-muted">No customers found. Create one to get started.</p>
+}

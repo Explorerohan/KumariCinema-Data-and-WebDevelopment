@@ -1,0 +1,42 @@
+@model List<Hall>
+@{
+    ViewData["Title"] = "Theater/Hall Details";
+}
+<h2>Theater/Hall Details</h2>
+<p class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Hall ID</th>
+            <th>Theater</th>
+            <th>City</th>
+            <th>Hall #</th>
+            <th>Capacity</th>
+            <th>Hall Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.HallId</td>
+                <td>@(item.TheaterName ?? "-")</td>
+                <td>@(item.City ?? "-")</td>
+                <td>@item.HallNumber</td>
+                <td>@item.Capacity</td>
+                <td>@(item.HallType ?? "-")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.HallId" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.HallId" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="text-muted">No halls found. Create one to get started.</p>
+}

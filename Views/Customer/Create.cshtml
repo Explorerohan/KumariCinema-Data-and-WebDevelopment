@@ -1,0 +1,58 @@
+@model Customer
+@{
+    ViewData["Title"] = "Create Customer";
+}
+<h2>Create Customer</h2>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="CustomerEmail"></label>
+            <input asp-for="CustomerEmail" class="form-control" type="email" />
+            <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <label asp-for="CustomerAddress"></label>
+            <input asp-for="CustomerAddress" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="CustomerCity"></label>
+            <input asp-for="CustomerCity" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label asp-for="DateOfBirth"></label>
+            <input asp-for="DateOfBirth" class="form-control" type="date" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="RegistrationDate"></label>
+            <input asp-for="RegistrationDate" class="form-control" type="date" />
+        </div>
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

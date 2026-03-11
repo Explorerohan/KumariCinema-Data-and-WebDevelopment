@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "User Tickets (Last 6 Months)";
+    var customers = ViewBag.Customers as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+    var tickets = ViewBag.Tickets as List<UserTicketViewModel> ?? new List<UserTicketViewModel>();
+    var selectedCustomer = ViewBag.SelectedCustomer;
+}
+<h2>User Tickets (Last 6 Months)</h2>
+<form method="get" asp-action="Index" class="card p-3 mb-3">
+    <div class="row align-items-end">
+        <div class="col-md-6">
+            <label class="form-label">Select User</label>
+            <select name="customerId" class="form-select">
+                <option value="">-- Select Customer --</option>
+                @foreach (var c in customers)
+                {
+                    var selected = ViewBag.CustomerId != null && c.CustomerId == (decimal)ViewBag.CustomerId;
+                    <option value="@c.CustomerId" selected="@selected">@c.Display</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">Filter (Last 6 months)</button>
+        </div>
+    </div>
+</form>
+
+@if (selectedCustomer != null)
+{
+    <div class="card mb-3">
+        <div class="card-header">User Details</div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-2">Name</dt>
+                <dd class="col-sm-10">@selectedCustomer.FullName</dd>
+                <dt class="col-sm-2">Username</dt>
+                <dd class="col-sm-10">@selectedCustomer.Username</dd>
+                <dt class="col-sm-2">Email</dt>
+                <dd class="col-sm-10">@selectedCustomer.CustomerEmail</dd>
+            </dl>
+        </div>
+    </div>
+}
+
+<h5>Tickets (Last 6 months)</h5>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>Movie Title</th>
+            <th>Theater Name</th>
+            <th>Hall Number</th>
+            <th>Show Date</th>
+            <th>Show Time</th>
+            <th>Ticket Number</th>
+            <th>Ticket Price</th>
+            <th>Payment Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in tickets)
+        {
+            <tr>
+                <td>@(t.UserName ?? "-")</td>
+                <td>@(t.MovieTitle ?? "-")</td>
+                <td>@(t.TheaterName ?? "-")</td>
+                <td>@(t.HallNumber ?? "-")</td>
+                <td>@(t.ShowDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                <td>@(t.ShowTime?.ToString(@"hh\:mm") ?? "-")</td>
+                <td>@(t.TicketNumber ?? "-")</td>
+                <td>@(t.TicketPrice?.ToString("N2") ?? "-")</td>
+                <td>@(t.PaymentStatus ?? "-")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!tickets.Any() && selectedCustomer != null)
+{
+    <p class="text-muted">No tickets found for this user in the last 6 months.</p>
+}

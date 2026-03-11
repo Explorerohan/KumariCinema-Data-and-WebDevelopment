@@ -1,0 +1,43 @@
+@model Movie
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+<h2>Edit Movie</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MovieId" />
+    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+    <div class="row mb-2">
+        <div class="col-md-8">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="Duration"></label>
+            <input asp-for="Duration" class="form-control" type="number" min="1" max="500" step="1" placeholder="e.g. 120" />
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="Language"></label>
+            <input asp-for="Language" class="form-control" placeholder="e.g. English" />
+            <span asp-validation-for="Language" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Genre"></label>
+            <input asp-for="Genre" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="ReleaseDate"></label>
+            <input asp-for="ReleaseDate" class="form-control" type="date" />
+        </div>
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

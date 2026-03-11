@@ -1,0 +1,58 @@
+@model Ticket
+@{
+    ViewData["Title"] = "Create Ticket";
+    var bookings = ViewBag.Bookings as SelectList ?? new SelectList(Enumerable.Empty<SelectListItem>());
+    var seats = ViewBag.Seats as SelectList ?? new SelectList(Enumerable.Empty<SelectListItem>());
+}
+<h2>Create Ticket</h2>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="BookingId">Booking</label>
+            <select asp-for="BookingId" class="form-control" asp-items="bookings">
+                <option value="">-- Select Booking --</option>
+            </select>
+            <span asp-validation-for="BookingId" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="SeatId">Seat</label>
+            <select asp-for="SeatId" class="form-control" asp-items="seats">
+                <option value="">-- Select Seat --</option>
+            </select>
+            <span asp-validation-for="SeatId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="TicketNumber"></label>
+            <input asp-for="TicketNumber" class="form-control" placeholder="e.g. TKT-001" />
+            <span asp-validation-for="TicketNumber" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="TicketPrice"></label>
+            <input asp-for="TicketPrice" class="form-control" type="number" step="0.01" min="0" />
+            <span asp-validation-for="TicketPrice" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label asp-for="TicketStatus"></label>
+            <select asp-for="TicketStatus" class="form-control">
+                <option value="">-- Select --</option>
+                <option value="Valid">Valid</option>
+                <option value="Used">Used</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="IssueDate"></label>
+            <input asp-for="IssueDate" class="form-control" type="date" />
+        </div>
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

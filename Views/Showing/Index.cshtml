@@ -1,0 +1,44 @@
+@model List<Showing>
+@{
+    ViewData["Title"] = "Showtimes";
+}
+<h2>Showtimes</h2>
+<p class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Showing ID</th>
+            <th>Theater</th>
+            <th>Hall</th>
+            <th>Movie</th>
+            <th>Show Date</th>
+            <th>Show Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ShowingId</td>
+                <td>@(item.TheaterName ?? "-")</td>
+                <td>@(item.HallNumber ?? "-")</td>
+                <td>@(item.MovieTitle ?? "-")</td>
+                <td>@item.ShowDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.ShowTime.ToString(@"hh\:mm")</td>
+                <td>@(item.Status ?? "-")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ShowingId" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.ShowingId" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!Model.Any())
+{
+    <p class="text-muted">No showtimes found. Create one to get started.</p>
+}
