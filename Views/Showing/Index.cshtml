@@ -28,7 +28,7 @@
                 <td>@(item.HallNumber ?? "-")</td>
                 <td>@(item.MovieTitle ?? "-")</td>
                 <td>@item.ShowDate.ToString("yyyy-MM-dd")</td>
-                <td>@item.ShowTime.ToString(@"hh\:mm")</td>
+                <td>@(string.IsNullOrWhiteSpace(item.ShowTime) ? "-" : item.ShowTime)</td>
                 <td>@(item.Status ?? "-")</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ShowingId" class="btn btn-sm btn-outline-primary">Edit</a>

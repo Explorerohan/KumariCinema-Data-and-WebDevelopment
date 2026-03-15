@@ -103,7 +103,7 @@ public class TicketRepository
             TheaterName = OracleHelper.GetString(rdr, "THEATERNAME"),
             HallNumber = OracleHelper.GetString(rdr, "HALLNUMBER"),
             ShowDate = OracleHelper.GetDateTime(rdr, "SHOWDATE"),
-            ShowTime = OracleHelper.GetTimeSpan(rdr, "SHOWTIME"),
+            ShowTime = OracleHelper.GetString(rdr, "SHOWTIME"),
             PaymentStatus = OracleHelper.GetString(rdr, "PAYMENTSTATUS")
         };
     }

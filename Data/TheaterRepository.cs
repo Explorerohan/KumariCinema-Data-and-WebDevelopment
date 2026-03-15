@@ -20,7 +20,7 @@ public class TheaterRepository
         var list = new List<Theater>();
         using var conn = OracleHelper.CreateConnection(_config);
         using var cmd = new OracleCommand(
-            "SELECT THEATERID, THEATERNAME, CITY, ADDRESS, CONTACTNUMBER, EMAIL FROM THEATER ORDER BY THEATERNAME", conn);
+            "SELECT THEATERID, THEATERNAME, CITY, ADDRESS, CONTACTNUMBER, EMAIL FROM THEATER ORDER BY THEATERID", conn);
         using var rdr = cmd.ExecuteReader();
         while (rdr.Read())
         {

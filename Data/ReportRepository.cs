@@ -48,7 +48,7 @@ public class ReportRepository
                 TheaterName = OracleHelper.GetString(rdr, "THEATERNAME"),
                 HallNumber = OracleHelper.GetString(rdr, "HALLNUMBER"),
                 ShowDate = OracleHelper.GetDateTime(rdr, "SHOWDATE"),
-                ShowTime = OracleHelper.GetTimeSpan(rdr, "SHOWTIME"),
+                ShowTime = OracleHelper.GetString(rdr, "SHOWTIME"),
                 TicketNumber = OracleHelper.GetString(rdr, "TICKETNUMBER"),
                 TicketPrice = OracleHelper.GetDecimal(rdr, "TICKETPRICE"),
                 PaymentStatus = OracleHelper.GetString(rdr, "PAYMENTSTATUS")
@@ -98,7 +98,7 @@ public class ReportRepository
                 Genre = OracleHelper.GetString(rdr, "GENRE"),
                 Language = OracleHelper.GetString(rdr, "LANGUAGE"),
                 ShowDate = OracleHelper.GetDateTime(rdr, "SHOWDATE"),
-                ShowTime = OracleHelper.GetTimeSpan(rdr, "SHOWTIME"),
+                ShowTime = OracleHelper.GetString(rdr, "SHOWTIME"),
                 Status = OracleHelper.GetString(rdr, "STATUS")
             });
         }

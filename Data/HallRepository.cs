@@ -20,7 +20,7 @@ public class HallRepository
         var list = new List<Hall>();
         using var conn = OracleHelper.CreateConnection(_config);
         var sql = @"SELECT h.HALLID, h.THEATERID, h.HALLNUMBER, h.CAPACITY, h.HALLTYPE, t.THEATERNAME, t.CITY
-            FROM HALL h INNER JOIN THEATER t ON h.THEATERID = t.THEATERID ORDER BY t.THEATERNAME, h.HALLNUMBER";
+            FROM HALL h INNER JOIN THEATER t ON h.THEATERID = t.THEATERID ORDER BY h.HALLID";
         using var cmd = new OracleCommand(sql, conn);
         using var rdr = cmd.ExecuteReader();
         while (rdr.Read())

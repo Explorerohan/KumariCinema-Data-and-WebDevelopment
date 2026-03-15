@@ -53,26 +53,23 @@ public class ShowingRepository
 
     public int Insert(Showing s)
     {
-        // Oracle DATE for time: combine ShowDate with ShowTime
-        var showDateTime = s.ShowDate.Date + s.ShowTime;
         var sql = "INSERT INTO SHOWING (HALLID, MOVIEID, SHOWDATE, SHOWTIME, STATUS) VALUES (:h, :m, :sd, :st, :status)";
         return OracleHelper.ExecuteNonQuery(sql, _config,
             new OracleParameter(":h", s.HallId),
             new OracleParameter(":m", s.MovieId),
             new OracleParameter(":sd", s.ShowDate),
-            new OracleParameter(":st", showDateTime),
+            new OracleParameter(":st", (object?)s.ShowTime ?? DBNull.Value),
             new OracleParameter(":status", (object?)s.Status ?? DBNull.Value));
     }
 
     public int Update(Showing s)
     {
-        var showDateTime = s.ShowDate.Date + s.ShowTime;
         var sql = "UPDATE SHOWING SET HALLID=:h, MOVIEID=:m, SHOWDATE=:sd, SHOWTIME=:st, STATUS=:status WHERE SHOWINGID=:id";
         return OracleHelper.ExecuteNonQuery(sql, _config,
             new OracleParameter(":h", s.HallId),
             new OracleParameter(":m", s.MovieId),
             new OracleParameter(":sd", s.ShowDate),
-            new OracleParameter(":st", showDateTime),
+            new OracleParameter(":st", (object?)s.ShowTime ?? DBNull.Value),
             new OracleParameter(":status", (object?)s.Status ?? DBNull.Value),
             new OracleParameter(":id", s.ShowingId));
     }
@@ -85,14 +82,13 @@ public class ShowingRepository
 
     private static Showing Map(OracleDataReader rdr)
     {
-        var showTime = OracleHelper.GetTimeSpan(rdr, "SHOWTIME");
         return new Showing
         {
             ShowingId = OracleHelper.GetDecimal(rdr, "SHOWINGID"),
             HallId = OracleHelper.GetDecimal(rdr, "HALLID"),
             MovieId = OracleHelper.GetDecimal(rdr, "MOVIEID"),
             ShowDate = OracleHelper.GetDateTime(rdr, "SHOWDATE") ?? DateTime.Today,
-            ShowTime = showTime ?? TimeSpan.Zero,
+            ShowTime = OracleHelper.GetString(rdr, "SHOWTIME") ?? "",
             Status = OracleHelper.GetString(rdr, "STATUS"),
             HallNumber = OracleHelper.GetString(rdr, "HALLNUMBER"),
             MovieTitle = OracleHelper.GetString(rdr, "MOVIETITLE"),

@@ -32,7 +32,7 @@
                 <td>@(item.TheaterName ?? "-")</td>
                 <td>@(item.HallNumber ?? "-")</td>
                 <td>@(item.ShowDate?.ToString("yyyy-MM-dd") ?? "-")</td>
-                <td>@(item.ShowTime?.ToString(@"hh\:mm") ?? "-")</td>
+                <td>@(string.IsNullOrWhiteSpace(item.ShowTime) ? "-" : item.ShowTime)</td>
                 <td>@item.TicketPrice.ToString("N2")</td>
                 <td>@(item.TicketStatus ?? "-")</td>
                 <td>@(item.PaymentStatus ?? "-")</td>

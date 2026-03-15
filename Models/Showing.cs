@@ -24,7 +24,8 @@ public class Showing
 
     [Required(ErrorMessage = "Show time is required")]
     [Display(Name = "Show Time")]
-    public TimeSpan ShowTime { get; set; }
+    [StringLength(20)]
+    public string ShowTime { get; set; } = string.Empty;
 
     [Display(Name = "Status")]
     [StringLength(20)]

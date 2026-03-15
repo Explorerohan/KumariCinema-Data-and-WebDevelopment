@@ -40,6 +40,6 @@ public class Ticket
     public string? TheaterName { get; set; }
     public string? HallNumber { get; set; }
     public DateTime? ShowDate { get; set; }
-    public TimeSpan? ShowTime { get; set; }
+    public string? ShowTime { get; set; }
     public string? PaymentStatus { get; set; }
 }

@@ -61,7 +61,7 @@
                 <td>@(r.Genre ?? "-")</td>
                 <td>@(r.Language ?? "-")</td>
                 <td>@(r.ShowDate?.ToString("yyyy-MM-dd") ?? "-")</td>
-                <td>@(r.ShowTime?.ToString(@"hh\:mm") ?? "-")</td>
+                <td>@(string.IsNullOrWhiteSpace(r.ShowTime) ? "-" : r.ShowTime)</td>
                 <td>@(r.Status ?? "-")</td>
             </tr>
         }

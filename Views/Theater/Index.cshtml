@@ -1,0 +1,38 @@
+@model List<Theater>
+@{
+    ViewData["Title"] = "Theater Details";
+}
+
+<h2>Theater Details</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Theater ID</th>
+            <th>Theater Name</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TheaterId</td>
+                <td>@item.TheaterName</td>
+                <td>@(item.City ?? "-")</td>
+                <td>@(item.Address ?? "-")</td>
+                <td>@(item.ContactNumber ?? "-")</td>
+                <td>@(item.Email ?? "-")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">No theaters found in the system.</p>
+}
+
