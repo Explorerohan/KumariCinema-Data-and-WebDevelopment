@@ -53,13 +53,23 @@ public class ShowingRepository
 
     public int Insert(Showing s)
     {
-        var sql = "INSERT INTO SHOWING (HALLID, MOVIEID, SHOWDATE, SHOWTIME, STATUS) VALUES (:h, :m, :sd, :st, :status)";
+        var nextId = GetNextShowingId();
+        var sql = "INSERT INTO SHOWING (SHOWINGID, HALLID, MOVIEID, SHOWDATE, SHOWTIME, STATUS) VALUES (:id, :h, :m, :sd, :st, :status)";
         return OracleHelper.ExecuteNonQuery(sql, _config,
+            new OracleParameter(":id", nextId),
             new OracleParameter(":h", s.HallId),
             new OracleParameter(":m", s.MovieId),
             new OracleParameter(":sd", s.ShowDate),
             new OracleParameter(":st", (object?)s.ShowTime ?? DBNull.Value),
             new OracleParameter(":status", (object?)s.Status ?? DBNull.Value));
+    }
+
+    private decimal GetNextShowingId()
+    {
+        using var conn = OracleHelper.CreateConnection(_config);
+        using var cmd = new OracleCommand("SELECT NVL(MAX(SHOWINGID), 0) + 1 FROM SHOWING", conn);
+        var result = cmd.ExecuteScalar();
+        return result != null && result != DBNull.Value ? Convert.ToDecimal(result) : 1;
     }
 
     public int Update(Showing s)

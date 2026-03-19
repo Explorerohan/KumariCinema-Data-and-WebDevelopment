@@ -2,75 +2,113 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center mb-4">
-    <h1 class="display-4 mb-2">Cinema Ticketing Console</h1>
-    <p class="lead mb-0">Manage customers, schedules, tickets and insights in a single, elegant dashboard.</p>
+<section class="dashboard-hero">
+    <div class="dashboard-hero-bg"></div>
+    <div class="container position-relative">
+        <div class="dashboard-hero-content">
+            <h1 class="dashboard-hero-title">Kumari Cinemas</h1>
+            <p class="dashboard-hero-subtitle">Ticketing &amp; Operations Dashboard</p>
+            <p class="dashboard-hero-desc">Manage venues, showtimes, tickets and reports in one place.</p>
+        </div>
+    </div>
+</section>
+
+<div class="container dashboard-body">
+    <section class="dashboard-stats">
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <div class="stat-card stat-card--theaters">
+                    <span class="stat-card__value">@(ViewBag.TheaterCount ?? "—")</span>
+                    <span class="stat-card__label">Theaters</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card stat-card--movies">
+                    <span class="stat-card__value">@(ViewBag.MovieCount ?? "—")</span>
+                    <span class="stat-card__label">Movies</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card stat-card--showings">
+                    <span class="stat-card__value">@(ViewBag.ShowingCount ?? "—")</span>
+                    <span class="stat-card__label">Showtimes</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card stat-card--tickets">
+                    <span class="stat-card__value">@(ViewBag.TicketCount ?? "—")</span>
+                    <span class="stat-card__label">Tickets</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-menu">
+        <h2 class="dashboard-section-title">Options Menu</h2>
+        <p class="dashboard-section-subtitle">Data management and reporting — choose an option below.</p>
+
+        <div class="dashboard-menu-grid">
+            <a asp-controller="Customer" asp-action="Index" class="dashboard-tile dashboard-tile--customer">
+                <span class="dashboard-tile__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg>
+                </span>
+                <span class="dashboard-tile__title">User Details</span>
+                <span class="dashboard-tile__meta">Customers</span>
+                <span class="dashboard-tile__arrow">→</span>
+            </a>
+            <a asp-controller="Hall" asp-action="Index" class="dashboard-tile dashboard-tile--hall">
+                <span class="dashboard-tile__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16"><path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7z"/></svg>
+                </span>
+                <span class="dashboard-tile__title">Theatercityhall</span>
+                <span class="dashboard-tile__meta">Venues &amp; halls</span>
+                <span class="dashboard-tile__arrow">→</span>
+            </a>
+            <a asp-controller="Movie" asp-action="Index" class="dashboard-tile dashboard-tile--movie">
+                <span class="dashboard-tile__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm9 2v2h2v-2h-2zm2-2h-2v-2h2v2zm0-4V2h-2v2h2zm0 0h2V2h-2v2z"/></svg>
+                </span>
+                <span class="dashboard-tile__title">Movie Details</span>
+                <span class="dashboard-tile__meta">Catalog</span>
+                <span class="dashboard-tile__arrow">→</span>
+            </a>
+            <a asp-controller="Showing" asp-action="Index" class="dashboard-tile dashboard-tile--showing">
+                <span class="dashboard-tile__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
+                </span>
+                <span class="dashboard-tile__title">Showtimes</span>
+                <span class="dashboard-tile__meta">Schedules</span>
+                <span class="dashboard-tile__arrow">→</span>
+            </a>
+            <a asp-controller="Ticket" asp-action="Index" class="dashboard-tile dashboard-tile--ticket">
+                <span class="dashboard-tile__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                </span>
+                <span class="dashboard-tile__title">Ticket Details</span>
+                <span class="dashboard-tile__meta">Bookings &amp; tickets</span>
+                <span class="dashboard-tile__arrow">→</span>
+            </a>
+        </div>
+
+        <h3 class="dashboard-subsection-title">Reports</h3>
+        <div class="dashboard-reports">
+            <a asp-controller="UserTicket" asp-action="Index" class="dashboard-report-card">
+                <span class="dashboard-report-card__icon">📋</span>
+                <span class="dashboard-report-card__title">User Tickets</span>
+                <span class="dashboard-report-card__desc">Last 6 months</span>
+            </a>
+            <a asp-controller="TheaterMovie" asp-action="Index" class="dashboard-report-card">
+                <span class="dashboard-report-card__icon">🎬</span>
+                <span class="dashboard-report-card__title">Theater/Hall Movies</span>
+                <span class="dashboard-report-card__desc">Movies by venue</span>
+            </a>
+            <a asp-controller="Occupancy" asp-action="Index" class="dashboard-report-card">
+                <span class="dashboard-report-card__icon">📊</span>
+                <span class="dashboard-report-card__title">Top Occupancy</span>
+                <span class="dashboard-report-card__desc">By movie</span>
+            </a>
+        </div>
+    </section>
+
 </div>
 
-<div class="row g-3 mb-4">
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Data Management</h5>
-            </div>
-            <div class="card-body home-quick-links">
-                <div class="home-link-grid">
-                    <a asp-controller="Customer" asp-action="Index" class="home-link-tile">
-                        <span>User Details (Customer)</span>
-                        <span class="home-link-icon">›</span>
-                    </a>
-                    <a asp-controller="Hall" asp-action="Index" class="home-link-tile">
-                        <span>Theatercityhall Details</span>
-                        <span class="home-link-icon">›</span>
-                    </a>
-                    <a asp-controller="Movie" asp-action="Index" class="home-link-tile">
-                        <span>Movie Details</span>
-                        <span class="home-link-icon">›</span>
-                    </a>
-                    <a asp-controller="Showing" asp-action="Index" class="home-link-tile">
-                        <span>Showtimes</span>
-                        <span class="home-link-icon">›</span>
-                    </a>
-                    <a asp-controller="Ticket" asp-action="Index" class="home-link-tile">
-                        <span>Ticket Details</span>
-                        <span class="home-link-icon">›</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">Reports</h5>
-            </div>
-            <div class="card-body home-quick-links">
-                <div class="home-link-grid">
-                    <a asp-controller="UserTicket" asp-action="Index" class="home-link-tile">
-                        <span>User Tickets (Last 6 months)</span>
-                        <span class="home-link-icon">›</span>
-                    </a>
-                    <a asp-controller="TheaterMovie" asp-action="Index" class="home-link-tile">
-                        <span>Theater/Hall Movies</span>
-                        <span class="home-link-icon">›</span>
-                    </a>
-                    <a asp-controller="Occupancy" asp-action="Index" class="home-link-tile">
-                        <span>Top Occupancy by Movie</span>
-                        <span class="home-link-icon">›</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-header bg-info text-white">
-                <h5 class="mb-0">Quick Info</h5>
-            </div>
-            <div class="card-body">
-                <p class="small mb-2">This academic project demonstrates a cinema ticketing system built on ASP.NET Core MVC with an Oracle database backend.</p>
-                <p class="small mb-0 text-muted">It covers end‑to‑end management of customers, theaters, halls, movies, showtimes and tickets, plus reporting on user tickets, movie scheduling and occupancy.</p>
-            </div>
-        </div>
-    </div>
-</div>
